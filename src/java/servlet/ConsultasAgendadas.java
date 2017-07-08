@@ -5,7 +5,7 @@
 package servlet;
 
 import bd.Dados;
-import entidades.Consulta;
+import com.vetpet.bean.Consulta;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;

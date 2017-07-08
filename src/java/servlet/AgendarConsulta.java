@@ -5,7 +5,8 @@
 package servlet;
 
 import bd.Dados;
-import entidades.Consulta;
+import com.vetpet.bean.Consulta;
+import com.vetpet.dao.ConsultaDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
@@ -37,8 +38,9 @@ public class AgendarConsulta extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        ConsultaDAO consultaDAO = new ConsultaDAO();
+       
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         Consulta consulta = new Consulta();

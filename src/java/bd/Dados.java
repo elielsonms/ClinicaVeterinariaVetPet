@@ -1,7 +1,7 @@
 package bd;
 
 
-import entidades.Consulta;
+import com.vetpet.bean.Consulta;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
