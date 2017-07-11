@@ -1,14 +1,16 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-package servlet;
+package com.vetpet.view.consulta;
 
-import bd.Dados;
+import com.vetpet.bean.Animal;
+import com.vetpet.bean.Cliente;
 import com.vetpet.bean.Consulta;
+import com.vetpet.dao.ConsultaDAO;
+import com.vetpet.dao.MedicoDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -21,9 +23,9 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author aluno
  */
-@WebServlet(name = "ConsultasAgendadas", urlPatterns = {"/ConsultasAgendadas"})
-public class ConsultasAgendadas extends HttpServlet {
-
+@WebServlet(name = "SalvarConsulta", urlPatterns = {"/consulta/Salvar"})
+public class SalvarConsulta extends HttpServlet {
+    private static List<Consulta> consultas;
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -34,39 +36,36 @@ public class ConsultasAgendadas extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, InterruptedException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+        ConsultaDAO consultaDAO = new ConsultaDAO();
+        MedicoDAO medicoDAO = new MedicoDAO();
+
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        
-        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-                
-        
-        synchronized(this){
-            System.out.println("dasdasdadsa");
-            Thread.sleep(20000);
-        }
+        Consulta consulta = new Consulta();
+       
         try {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ConsultasAgendadas</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1> Sistema de Marcação de Consultas da Clinica Veterinária VetPet</h1>");
-            for(Consulta consulta : Dados.consultas){
-                out.format("<p>Consulta do cliente %s para o animal %s com o veterinario %s foi agendada para o dia %s</p>",consulta.getCliente(),consulta.getAnimal(), consulta.getMedico(), df.format(consulta.getData()));
+            Cliente cl = new Cliente();
+            cl.setNome(request.getParameter("cliente"));
+            consulta.setCliente(cl);
+            Animal a = new Animal();
+            a.setNome(request.getParameter("animal"));
+            a.setDono(cl);
+            consulta.setAnimal(a);
+            SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+            try {
+                consulta.setData(df.parse(request.getParameter("data")));
+            } catch (ParseException ex) {
+                Logger.getLogger(SalvarConsulta.class.getName()).log(Level.SEVERE, null, ex);
             }
-            if(Dados.consultas.isEmpty()){
-                out.println("Nenhuma Consulta agendada <br/><br/>");
-            }
-            out.format("<a href='index.html'>Voltar</a>");
-            out.println("</body>");
-            out.println("</html>");
+            consulta.setMedico(medicoDAO.obterPorId(Long.parseLong(request.getParameter("medico"))));
+            
         } finally {            
             out.close();
         }
+        consultaDAO.inserir(consulta);
+        
+        request.getRequestDispatcher("/WEB-INF/consulta/ConsultaSalva.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -84,8 +83,8 @@ public class ConsultasAgendadas extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(ConsultasAgendadas.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(SalvarConsulta.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -103,8 +102,8 @@ public class ConsultasAgendadas extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(ConsultasAgendadas.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(SalvarConsulta.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

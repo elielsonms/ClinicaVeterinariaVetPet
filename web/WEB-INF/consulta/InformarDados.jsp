@@ -1,10 +1,3 @@
-<%-- 
-    Document   : MarcarConsulta
-    Created on : 17/06/2017, 14:45:34
-    Author     : aluno
---%>
-
-<%@page import="bd.Dados"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

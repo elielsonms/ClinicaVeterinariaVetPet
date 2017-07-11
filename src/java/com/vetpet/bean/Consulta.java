@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.vetpet.bean;
 
 import java.util.Date;
@@ -12,40 +8,49 @@ import java.util.Date;
  */
 public class Consulta {
     
-    private String cliente;
-    private String animal;
+    private Long idConsulta;
+    private Cliente cliente;
+    private Animal animal;
     private Date data;
-    private String medico;
+    private Medico medico;
 
-    public String getCliente() {
+    public Long getIdConsulta() {
+        return idConsulta;
+    }
+
+    public Cliente getCliente() {
         return cliente;
     }
 
-    public void setCliente(String cliente) {
-        this.cliente = cliente;
-    }
-
-    public String getAnimal() {
+    public Animal getAnimal() {
         return animal;
-    }
-
-    public void setAnimal(String animal) {
-        this.animal = animal;
     }
 
     public Date getData() {
         return data;
     }
 
+    public Medico getMedico() {
+        return medico;
+    }
+
+    public void setIdConsulta(Long idConsulta) {
+        this.idConsulta = idConsulta;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public void setAnimal(Animal animal) {
+        this.animal = animal;
+    }
+
     public void setData(Date data) {
         this.data = data;
     }
 
-    public String getMedico() {
-        return medico;
-    }
-
-    public void setMedico(String medico) {
+    public void setMedico(Medico medico) {
         this.medico = medico;
     }
 
