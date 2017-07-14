@@ -3,10 +3,12 @@ package com.vetpet.view.consulta;
 import com.vetpet.bean.Animal;
 import com.vetpet.bean.Cliente;
 import com.vetpet.bean.Consulta;
+import com.vetpet.dao.AnimalDAO;
+import com.vetpet.dao.ClienteDAO;
 import com.vetpet.dao.ConsultaDAO;
 import com.vetpet.dao.MedicoDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
+import static java.lang.System.out;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -39,18 +41,20 @@ public class SalvarConsulta extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
         ConsultaDAO consultaDAO = new ConsultaDAO();
         MedicoDAO medicoDAO = new MedicoDAO();
+        ClienteDAO clienteDAO = new ClienteDAO();
+        AnimalDAO animalDAO = new AnimalDAO();
 
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
         Consulta consulta = new Consulta();
        
         try {
             Cliente cl = new Cliente();
             cl.setNome(request.getParameter("cliente"));
+            clienteDAO.inserir(cl);
             consulta.setCliente(cl);
             Animal a = new Animal();
             a.setNome(request.getParameter("animal"));
             a.setDono(cl);
+            animalDAO.inserir(a);
             consulta.setAnimal(a);
             SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
             try {

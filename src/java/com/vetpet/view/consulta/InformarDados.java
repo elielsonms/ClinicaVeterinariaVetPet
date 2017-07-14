@@ -29,6 +29,8 @@ public class InformarDados extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
         request.setAttribute("medicos", new MedicoDAO().obterMedicos());
+        request.setAttribute("request",request);
+        request.setAttribute("dataSelecionada", request.getParameter("data"));
         request.getRequestDispatcher("/WEB-INF/consulta/InformarDados.jsp").forward(request, response);
     }
 

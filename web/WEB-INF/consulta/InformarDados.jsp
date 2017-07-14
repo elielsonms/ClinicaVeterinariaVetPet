@@ -1,4 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib  prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -7,19 +9,18 @@
     </head>
     <body>
         <h1> Sistema de Marcação de Consultas da Clinica Veterinária VetPet</h1>
-        <form action="AgendarConsulta" method="post">
+        <form action="${request.getContextPath()}/consulta/Salvar" method="post">
             Cliente <input type="text" name="cliente"/> <br/>
             Animal <input type="text" name="animal"/><br/>
             Medico <select name="medico">
-                <% for(int i=0;i< Dados.medicos().size();i++){ %>
-                <option value="<%= Dados.medicos().get(i) %>"><%= Dados.medicos().get(i) %></option>
-                <% } %>
-                </select>     
-            
+                    <c:forEach items="${medicos}" var="medico">
+                    <option value="${medico.getIdMedico()}"><c:out value="${medico.getNome()}"/></option>
+                    </c:forEach>
+                </select>
             <br/>
-            Data <input type="text" name="data" value="<%=request.getParameter("data") %>"/><br/>
+            Data <input type="text" name="data" value="${dataSelecionada}"/><br/>
             <input value="Salvar" type="submit"/>
         </form>
-        <a href='index.html'>Voltar</a>
+        <a href='${request.getContextPath()}/index.html'>Voltar</a>
     </body>
 </html>

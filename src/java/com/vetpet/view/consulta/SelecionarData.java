@@ -25,6 +25,7 @@ public class SelecionarData extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setAttribute("request",request);
         request.setAttribute("datasPossiveis", new ConsultaDAO().datasPossiveis());
         request.getRequestDispatcher("/WEB-INF/consulta/SelecionarData.jsp").forward(request, response);
     }

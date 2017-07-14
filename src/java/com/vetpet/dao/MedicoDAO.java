@@ -18,7 +18,7 @@ public class MedicoDAO extends CommonDAO{
     public void inserir(Medico medico) throws SQLException{
         Connection c = getConnection();
         String query = "INSERT INTO Medico (nome) VALUES (?)";
-        PreparedStatement st = c.prepareStatement(query);
+        PreparedStatement st = c.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
         st.setString(1,medico.getNome());
 
         st.executeUpdate();

@@ -10,6 +10,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -17,18 +19,32 @@ import java.util.List;
  */
 public class ClienteDAO extends CommonDAO{
     
-    public void inserir(Cliente cliente) throws SQLException, NoSuchAlgorithmException{
-        MessageDigest  md = MessageDigest.getInstance("MD5");
+    public Long inserir(Cliente cliente) throws SQLException{
+        if(cliente.getSenha() != null){
+            try {
+                MessageDigest  md = MessageDigest.getInstance("MD5");
+                cliente.setSenha(new String(md.digest(cliente.getSenha().getBytes())));
+            } catch (NoSuchAlgorithmException ex) {
+                Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         Connection c = getConnection();
         String query = "INSERT INTO Cliente (nome,usuario,senha) VALUES (?,?,?)";
-        PreparedStatement st = c.prepareStatement(query);
+        PreparedStatement st = c.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
         st.setString(1,cliente.getNome());
         st.setString(2,cliente.getUsuario());
-        st.setString(2,new String(md.digest(cliente.getSenha().getBytes())));
+        st.setString(3,cliente.getSenha());
         st.executeUpdate();
-
+        ResultSet rs = st.getGeneratedKeys();
+        Long idCliente = null;
+        if(rs.next()){
+            idCliente = rs.getLong(1);
+            cliente.setIdCliente(idCliente);
+        }
+        rs.close();
         st.close();
         c.close();
+        return idCliente;
     }
     
      public Cliente obterPorId(Long idCliente) throws SQLException{

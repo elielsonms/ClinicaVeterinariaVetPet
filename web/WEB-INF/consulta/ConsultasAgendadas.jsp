@@ -25,6 +25,6 @@
     <c:if test="${consultas == null}">
                 Nenhuma Consulta agendada <br/><br/>
     </c:if>
-        <a href='index.html'>Voltar</a>");
+        <a href='${request.getContextPath()}/index.html'>Voltar</a>
     </body>
 </html>

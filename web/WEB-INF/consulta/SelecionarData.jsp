@@ -9,7 +9,7 @@
     </head>
     <body>
         <h1> Sistema de Marcação de Consultas da Clinica Veterinária VetPet</h1>
-        <form action="/consulta/InformarDados" method="post">
+        <form action="${request.getContextPath()}/consulta/InformarDados" method="post">
             <select name="data">
                 <c:forEach items="${datasPossiveis}" var="dataPossivel">
                 <option value="<c:out value="${dataPossivel}"/>"><c:out value="${dataPossivel}"/></option>
@@ -17,6 +17,6 @@
             </select>
             <input type="submit" value="Selecionar"/>
         </form>
-        <a href='index.html'>Voltar</a>
+        <a href='${request.getContextPath()}/index.html'>Voltar</a>
     </body>
 </html>

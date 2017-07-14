@@ -20,12 +20,13 @@ public class ConsultaDAO extends CommonDAO{
     
     public void inserir(Consulta consulta) throws SQLException{
         Connection c = getConnection();
-        String sql = "INSERT INTO CONSULTA (id_cliente,id_animal,id_medico,data) VALUES (?,?,?,?) ";
-        PreparedStatement st = c.prepareStatement(sql);
+        String sql = "INSERT INTO Consulta (id_cliente,id_animal,id_medico,data) VALUES (?,?,?,?) ";
+        PreparedStatement st = c.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         st.setLong(1,consulta.getCliente().getIdCliente());
         st.setLong(2,consulta.getAnimal().getIdAnimal());
         st.setLong(3,consulta.getMedico().getIdMedico());
-        st.setDate(4, (Date) consulta.getData());
+        
+        st.setDate(4, consulta.getData() != null ? new Date(consulta.getData().getTime()) : null);
 
         st.executeUpdate();
     }
