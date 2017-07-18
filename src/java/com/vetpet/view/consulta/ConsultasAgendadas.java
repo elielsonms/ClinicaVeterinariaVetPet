@@ -1,6 +1,7 @@
 package com.vetpet.view.consulta;
 
 import com.vetpet.dao.ConsultaDAO;
+import com.vetpet.view.ServletSeguro;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;

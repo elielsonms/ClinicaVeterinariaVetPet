@@ -7,6 +7,7 @@ import com.vetpet.dao.AnimalDAO;
 import com.vetpet.dao.ClienteDAO;
 import com.vetpet.dao.ConsultaDAO;
 import com.vetpet.dao.MedicoDAO;
+import com.vetpet.view.ServletSeguro;
 import java.io.IOException;
 import static java.lang.System.out;
 import java.sql.SQLException;
@@ -17,7 +18,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 

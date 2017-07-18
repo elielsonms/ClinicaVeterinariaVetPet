@@ -5,7 +5,7 @@
  */
 package com.vetpet.view.login;
 
-import com.vetpet.view.consulta.ServletSeguro;
+import com.vetpet.view.ServletSeguro;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

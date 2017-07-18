@@ -1,4 +1,4 @@
-package com.vetpet.view.consulta;
+package com.vetpet.view;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
