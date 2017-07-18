@@ -16,7 +16,7 @@ public abstract class ServletSeguro extends HttpServlet {
     protected final void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("request", request);
         if(request.getSession().getAttribute("USUARIO") == null){
-            response.sendRedirect(request.getContextPath()+"/login");
+            response.sendRedirect(request.getContextPath()+"/Login");
             return;
         }
         get(request, response);

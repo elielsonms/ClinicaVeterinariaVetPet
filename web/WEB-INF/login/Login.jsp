@@ -15,6 +15,8 @@
         <form method="post" action="${request.getContextPath()}/Login">
             Usuario <input name="usuario" type="text"/> <br/>
             Senha <input name="senha" type="password"/>
+            <input type="submit" value="Enviar"/>
+            ${mensagem}
         </form>
     </body>
 </html>

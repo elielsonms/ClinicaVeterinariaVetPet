@@ -33,6 +33,7 @@ public class Login extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setAttribute("request", request);
         request.getRequestDispatcher("/WEB-INF/login/Login.jsp").forward(request, response);
     }
 
@@ -46,6 +47,7 @@ public class Login extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setAttribute("request", request);
         Cliente c  = null;
         try{
             c = new ClienteDAO().login(request.getParameter("usuario"), request.getParameter("senha"));
@@ -57,6 +59,7 @@ public class Login extends HttpServlet {
             response.sendRedirect(request.getContextPath()+"/");
         }else{
             request.setAttribute("mensagem", "Usuário não encontrado");
+            doGet(request, response);
         }
     }
 
