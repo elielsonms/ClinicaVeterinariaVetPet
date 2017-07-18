@@ -26,7 +26,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author aluno
  */
 @WebServlet(name = "SalvarConsulta", urlPatterns = {"/consulta/Salvar"})
-public class SalvarConsulta extends HttpServlet {
+public class SalvarConsulta extends ServletSeguro {
     private static List<Consulta> consultas;
     /**
      * Processes requests for both HTTP
@@ -83,7 +83,7 @@ public class SalvarConsulta extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    public void get(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
             processRequest(request, response);
@@ -102,7 +102,7 @@ public class SalvarConsulta extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    public void post(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
             processRequest(request, response);
@@ -111,13 +111,4 @@ public class SalvarConsulta extends HttpServlet {
         }
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
 }

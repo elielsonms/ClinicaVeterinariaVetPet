@@ -47,6 +47,32 @@ public class ClienteDAO extends CommonDAO{
         return idCliente;
     }
     
+    public Cliente login(String usuario,String senha)throws SQLException{
+        String senhaEncriptada = "";
+        try {
+            MessageDigest  md = MessageDigest.getInstance("MD5");
+            senhaEncriptada = new String(md.digest(senha.getBytes()));
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        Connection c = getConnection();
+        String query = "SELECT * FROM Cliente WHERE usuario = ? AND senha = ?";
+        PreparedStatement st = c.prepareStatement(query);
+        st.setString(1, usuario);
+        st.setString(2, senhaEncriptada);
+        ResultSet rs = st.executeQuery();
+        Cliente cliente = null;
+        if(rs.next()){
+            cliente = montar(rs);
+        }
+        
+        rs.close();;
+        st.close();
+        c.close();
+        return cliente;
+    }
+    
      public Cliente obterPorId(Long idCliente) throws SQLException{
         Connection c = getConnection();
         String query = "SELECT * FROM Cliente WHERE id_cliente = ?";
