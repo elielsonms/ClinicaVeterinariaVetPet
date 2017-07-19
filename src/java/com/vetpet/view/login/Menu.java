@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author elielsonms
  */
-@WebServlet(name = "Menu", urlPatterns = {"/"})
+@WebServlet(name = "Menu", urlPatterns = {"/Menu"})
 public class Menu extends ServletSeguro {
 
     /**

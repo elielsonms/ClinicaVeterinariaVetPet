@@ -47,9 +47,7 @@ public class SalvarConsulta extends ServletSeguro {
         Consulta consulta = new Consulta();
        
         try {
-            Cliente cl = new Cliente();
-            cl.setNome(request.getParameter("cliente"));
-            clienteDAO.inserir(cl);
+            Cliente cl = (Cliente)request.getSession().getAttribute("USUARIO");
             consulta.setCliente(cl);
             Animal a = new Animal();
             a.setNome(request.getParameter("animal"));

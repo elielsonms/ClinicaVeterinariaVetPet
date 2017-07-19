@@ -20,14 +20,14 @@ import java.util.logging.Logger;
 public class ClienteDAO extends CommonDAO{
     
     public Long inserir(Cliente cliente) throws SQLException{
-        if(cliente.getSenha() != null){
+        /*if(cliente.getSenha() != null){
             try {
                 MessageDigest  md = MessageDigest.getInstance("MD5");
-                cliente.setSenha(new String(md.digest(cliente.getSenha().getBytes())));
+                //cliente.setSenha(new String(md.digest(cliente.getSenha().getBytes())));
             } catch (NoSuchAlgorithmException ex) {
                 Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
+        }*/
         Connection c = getConnection();
         String query = "INSERT INTO Cliente (nome,usuario,senha) VALUES (?,?,?)";
         PreparedStatement st = c.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
@@ -48,19 +48,20 @@ public class ClienteDAO extends CommonDAO{
     }
     
     public Cliente login(String usuario,String senha)throws SQLException{
-        String senhaEncriptada = "";
+        /*String senhaEncriptada = "";
         try {
             MessageDigest  md = MessageDigest.getInstance("MD5");
             senhaEncriptada = new String(md.digest(senha.getBytes()));
+            System.out.println(senhaEncriptada);
         } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
         
         Connection c = getConnection();
         String query = "SELECT * FROM Cliente WHERE usuario = ? AND senha = ?";
         PreparedStatement st = c.prepareStatement(query);
         st.setString(1, usuario);
-        st.setString(2, senhaEncriptada);
+        st.setString(2, senha);
         ResultSet rs = st.executeQuery();
         Cliente cliente = null;
         if(rs.next()){

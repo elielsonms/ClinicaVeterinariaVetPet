@@ -10,7 +10,7 @@
     <body>
         <h1> Sistema de Marcação de Consultas da Clinica Veterinária VetPet</h1>
         <form action="${request.getContextPath()}/consulta/Salvar" method="post">
-            Cliente <input type="text" name="cliente"/> <br/>
+            Cliente ${nomeCliente}<br/>
             Animal <input type="text" name="animal"/><br/>
             Medico <select name="medico">
                     <c:forEach items="${medicos}" var="medico">

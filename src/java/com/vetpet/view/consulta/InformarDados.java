@@ -1,5 +1,6 @@
 package com.vetpet.view.consulta;
 
+import com.vetpet.bean.Cliente;
 import com.vetpet.dao.MedicoDAO;
 import com.vetpet.view.ServletSeguro;
 import java.io.IOException;
@@ -31,6 +32,7 @@ public class InformarDados extends ServletSeguro {
         request.setAttribute("medicos", new MedicoDAO().obterMedicos());
         request.setAttribute("request",request);
         request.setAttribute("dataSelecionada", request.getParameter("data"));
+        request.setAttribute("nomeCliente",((Cliente)request.getSession().getAttribute("USUARIO")).getNome());
         request.getRequestDispatcher("/WEB-INF/consulta/InformarDados.jsp").forward(request, response);
     }
 
