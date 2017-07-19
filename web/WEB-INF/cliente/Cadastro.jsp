@@ -1,4 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -6,7 +7,8 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1> Sistema de Marcação de Consultas da Clinica Veterinária VetPet</h1>
+        <jsp:include page="/WEB-INF/header.jsp" />
+        
         <form action="${request.getContextPath()}/cliente/Cadastro" method="post">
             Nome <input type="text" name="nome"/> <br/>
             Usuario <input type="text" name="usuario"/> <br/>
