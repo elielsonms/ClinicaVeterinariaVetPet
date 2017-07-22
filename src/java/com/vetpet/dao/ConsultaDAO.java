@@ -56,6 +56,22 @@ public class ConsultaDAO extends CommonDAO{
         c.close();
         return consultas;
     }
+    
+    public List<Consulta> obterConsultas(Long idCliente) throws SQLException {
+        Connection c = getConnection();
+        String query = "SELECT * FROM Consulta WHERE id_cliente = ?";
+        PreparedStatement st = c.prepareStatement(query);
+        st.setLong(1, idCliente);
+        ResultSet rs = st.executeQuery();
+        List<Consulta> consultas = new ArrayList<>();
+        while(rs.next()){
+            consultas.add(montar(rs));
+        }
+        rs.close();;
+        st.close();
+        c.close();
+        return consultas;
+    }
 
     private Consulta montar(ResultSet rs) throws SQLException {
         Consulta c = new Consulta();

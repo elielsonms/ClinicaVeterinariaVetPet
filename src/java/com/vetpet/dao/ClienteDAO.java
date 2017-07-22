@@ -115,5 +115,25 @@ public class ClienteDAO extends CommonDAO{
         
         return c;
     }
+
+    public boolean existeLogin(String usuario) {
+        boolean existe = false;
+        try{
+            Connection c = getConnection();
+            String query = "SELECT 1 FROM Cliente WHERE usuario = ? ";
+            PreparedStatement st = c.prepareStatement(query);
+            st.setString(1, usuario);
+            ResultSet rs = st.executeQuery();
+            if(rs.next()){
+                existe = true;
+            }
+            rs.close();
+            st.close();
+            c.close();
+        }catch(SQLException e){
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE,null,e);
+        }
+        return existe;
+    }
     
 }

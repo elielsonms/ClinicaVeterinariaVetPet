@@ -3,10 +3,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>VetPet - Login</title>
     </head>
     <body>
-        <h1> Sistema de Marcação de Consultas da Clinica Veterinária VetPet</h1>
+        <jsp:include page="/WEB-INF/header.jsp" />
         <form method="post" action="${request.getContextPath()}/Login">
             Usuario <input name="usuario" type="text"/> <br/>
             Senha <input name="senha" type="password"/>

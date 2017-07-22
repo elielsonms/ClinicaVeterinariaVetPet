@@ -1,1 +1,7 @@
-<h1> Sistema de Marcação de Consultas da Clinica Veterinária VetPet</h1>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib  prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %>
+
+<h1> Sistema de MarcaÃ§Ã£o de Consultas da Clinica VeterinÃ¡ria VetPet</h1>
+<c:if test="${usuario !=  null}">
+    <p> OlÃ¡ ${usuario}</p>
+</c:if>

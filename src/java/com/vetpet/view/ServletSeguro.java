@@ -1,5 +1,6 @@
 package com.vetpet.view;
 
+import com.vetpet.bean.Cliente;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,6 +20,7 @@ public abstract class ServletSeguro extends HttpServlet {
             response.sendRedirect(request.getContextPath()+"/Login");
             return;
         }
+        request.setAttribute("usuario", ((Cliente)request.getSession().getAttribute("USUARIO")).getNome());
         get(request, response);
     }
     
@@ -31,6 +33,7 @@ public abstract class ServletSeguro extends HttpServlet {
             response.sendRedirect(request.getContextPath()+"/login");
             return;
         }
+        request.setAttribute("usuario", ((Cliente)request.getSession().getAttribute("USUARIO")).getNome());
         post(request, response);
     }
     

@@ -66,7 +66,7 @@ public class SalvarConsulta extends ServletSeguro {
             out.close();
         }
         consultaDAO.inserir(consulta);
-        
+        request.setAttribute("consulta", consulta);
         request.getRequestDispatcher("/WEB-INF/consulta/ConsultaSalva.jsp").forward(request, response);
     }
 

@@ -5,10 +5,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>VetPet - Informar dados da Consulta</title>
     </head>
     <body>
-        <h1> Sistema de Marcação de Consultas da Clinica Veterinária VetPet</h1>
+        <jsp:include page="/WEB-INF/header.jsp" />
         <form action="${request.getContextPath()}/consulta/Salvar" method="post">
             Cliente ${nomeCliente}<br/>
             Animal <input type="text" name="animal"/><br/>
@@ -21,6 +21,6 @@
             Data <input type="text" name="data" value="${dataSelecionada}"/><br/>
             <input value="Salvar" type="submit"/>
         </form>
-        <a href='${request.getContextPath()}/index.html'>Voltar</a>
+        <jsp:include page="/WEB-INF/footer.jsp" />
     </body>
 </html>

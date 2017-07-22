@@ -39,13 +39,21 @@ public class CadastroCliente extends HttpServlet {
         c.setNome(request.getParameter("nome"));
         c.setUsuario(request.getParameter("usuario"));
         c.setSenha(request.getParameter("senha"));
-        try {
-            c.setIdCliente(new ClienteDAO().inserir(c));
-            request.getSession().setAttribute("USUARIO", c);
-            response.sendRedirect(request.getContextPath()+"/Menu");
-        } catch (SQLException ex) {
-            Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
+
+        ClienteDAO clienteDAO = new ClienteDAO();
+        if(clienteDAO.existeLogin(c.getUsuario())){
+            request.setAttribute("mensagem", "Usuario existente, tente outro.");
             doGet(request, response);
+        }else{
+            try {
+
+                c.setIdCliente(clienteDAO.inserir(c));
+                request.getSession().setAttribute("USUARIO", c);
+                response.sendRedirect(request.getContextPath()+"/Menu");
+            } catch (SQLException ex) {
+                Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
+                doGet(request, response);
+            }
         }
     }
 }

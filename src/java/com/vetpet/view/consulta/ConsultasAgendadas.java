@@ -1,5 +1,6 @@
 package com.vetpet.view.consulta;
 
+import com.vetpet.bean.Cliente;
 import com.vetpet.dao.ConsultaDAO;
 import com.vetpet.view.ServletSeguro;
 import java.io.IOException;
@@ -15,12 +16,12 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author aluno
  */
-@WebServlet(name = "ConsultasAgendadas", urlPatterns = {"/ConsultasAgendadas"})
+@WebServlet(name = "ConsultasAgendadas", urlPatterns = {"/consulta/ConsultasAgendadas"})
 public class ConsultasAgendadas extends ServletSeguro {
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response){
         try {
-            request.setAttribute("consultas", new ConsultaDAO().obterConsultas());
+            request.setAttribute("consultas", new ConsultaDAO().obterConsultas(((Cliente)request.getSession().getAttribute("USUARIO")).getIdCliente()));
             request.getRequestDispatcher("/WEB-INF/consulta/ConsultasAgendadas.jsp").forward(request, response);
         } catch (SQLException ex) {
             Logger.getLogger(ConsultasAgendadas.class.getName()).log(Level.SEVERE, null, ex);
