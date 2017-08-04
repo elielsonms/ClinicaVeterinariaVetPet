@@ -12,8 +12,16 @@ public class Cliente {
     private String nome;
     private String usuario;
     private String senha;
-    
+    private Long qtdConsultasTotal;
+    private Long qtdConsultasAno;
+    private Long qtdConsultasMes;
+    private Plano plano;
+
     private List<Animal> animais;
+    
+    public boolean podeRealizarConsulta(){
+        return qtdConsultasAno < plano.getQuantidadeAnual() && qtdConsultasMes < plano.getQuantidadeMensal();
+    }
 
     public Long getIdCliente() {
         return idCliente;
@@ -53,6 +61,38 @@ public class Cliente {
 
     public void setAnimais(List<Animal> animais) {
         this.animais = animais;
+    }
+
+    public Long getQtdConsultasTotal() {
+        return qtdConsultasTotal;
+    }
+
+    public void setQtdConsultasTotal(Long qtdConsultasTotal) {
+        this.qtdConsultasTotal = qtdConsultasTotal;
+    }
+
+    public Long getQtdConsultasAno() {
+        return qtdConsultasAno;
+    }
+
+    public void setQtdConsultasAno(Long qtdConsultasAno) {
+        this.qtdConsultasAno = qtdConsultasAno;
+    }
+
+    public Long getQtdConsultasMes() {
+        return qtdConsultasMes;
+    }
+
+    public void setQtdConsultasMes(Long qtdConsultasMes) {
+        this.qtdConsultasMes = qtdConsultasMes;
+    }
+
+    public Plano getPlano() {
+        return plano;
+    }
+
+    public void setPlano(Plano plano) {
+        this.plano = plano;
     }
 
 }

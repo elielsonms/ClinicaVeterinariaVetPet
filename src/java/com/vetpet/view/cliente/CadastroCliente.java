@@ -1,6 +1,7 @@
 package com.vetpet.view.cliente;
 
 import com.vetpet.bean.Cliente;
+import com.vetpet.bean.PlanoGratuito;
 import com.vetpet.dao.ClienteDAO;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -36,6 +37,7 @@ public class CadastroCliente extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Cliente c = new Cliente();
+        c.setPlano(new PlanoGratuito());
         c.setNome(request.getParameter("nome"));
         c.setUsuario(request.getParameter("usuario"));
         c.setSenha(request.getParameter("senha"));

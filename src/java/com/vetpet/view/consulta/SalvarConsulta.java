@@ -45,9 +45,8 @@ public class SalvarConsulta extends ServletSeguro {
         AnimalDAO animalDAO = new AnimalDAO();
 
         Consulta consulta = new Consulta();
-       
-        try {
-            Cliente cl = (Cliente)request.getSession().getAttribute("USUARIO");
+        Cliente cl = (Cliente)request.getSession().getAttribute("USUARIO");
+        if(cl.podeRealizarConsulta()){
             consulta.setCliente(cl);
             Animal a = new Animal();
             a.setNome(request.getParameter("animal"));
@@ -61,9 +60,6 @@ public class SalvarConsulta extends ServletSeguro {
                 Logger.getLogger(SalvarConsulta.class.getName()).log(Level.SEVERE, null, ex);
             }
             consulta.setMedico(medicoDAO.obterPorId(Long.parseLong(request.getParameter("medico"))));
-            
-        } finally {            
-            out.close();
         }
         consultaDAO.inserir(consulta);
         request.setAttribute("consulta", consulta);

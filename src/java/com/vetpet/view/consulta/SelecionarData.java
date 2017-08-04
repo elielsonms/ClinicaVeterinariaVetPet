@@ -1,5 +1,6 @@
 package com.vetpet.view.consulta;
 
+import com.vetpet.bean.Cliente;
 import com.vetpet.dao.ConsultaDAO;
 import com.vetpet.view.ServletSeguro;
 import java.io.IOException;
@@ -26,8 +27,14 @@ public class SelecionarData extends ServletSeguro {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("request",request);
-        request.setAttribute("datasPossiveis", new ConsultaDAO().datasPossiveis());
-        request.getRequestDispatcher("/WEB-INF/consulta/SelecionarData.jsp").forward(request, response);
+        Cliente cl = (Cliente)request.getSession().getAttribute("USUARIO");
+        if(cl.podeRealizarConsulta()){
+            request.setAttribute("datasPossiveis", new ConsultaDAO().datasPossiveis());
+            request.getRequestDispatcher("/WEB-INF/consulta/SelecionarData.jsp").forward(request, response);
+        }else{
+            request.setAttribute("cliente", cl);
+            request.getRequestDispatcher("/WEB-INF/consulta/NaoPodeRealizarConsulta.jsp").forward(request, response);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

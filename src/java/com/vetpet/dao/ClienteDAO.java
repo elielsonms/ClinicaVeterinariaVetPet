@@ -1,8 +1,7 @@
 package com.vetpet.dao;
 
 import com.vetpet.bean.Cliente;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+import com.vetpet.bean.Plano;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -58,7 +57,7 @@ public class ClienteDAO extends CommonDAO{
         }*/
         
         Connection c = getConnection();
-        String query = "SELECT * FROM Cliente WHERE usuario = ? AND senha = ?";
+        String query = colunas()+tabela()+" WHERE usuario = ? AND senha = ?";
         PreparedStatement st = c.prepareStatement(query);
         st.setString(1, usuario);
         st.setString(2, senha);
@@ -76,7 +75,7 @@ public class ClienteDAO extends CommonDAO{
     
      public Cliente obterPorId(Long idCliente) throws SQLException{
         Connection c = getConnection();
-        String query = "SELECT * FROM Cliente WHERE id_cliente = ?";
+        String query = colunas()+tabela()+" WHERE id_cliente = ?";
         PreparedStatement st = c.prepareStatement(query);
         st.setLong(1, idCliente);
         ResultSet rs = st.executeQuery();
@@ -93,7 +92,7 @@ public class ClienteDAO extends CommonDAO{
     
     public List<Cliente> obterClientes() throws SQLException{
         Connection c = getConnection();
-        String query = "SELECT * FROM Cliente";
+        String query = colunas()+tabela();
         Statement st = c.createStatement();
         ResultSet rs = st.executeQuery(query);
         List<Cliente> clientes = new ArrayList<>();
@@ -106,12 +105,28 @@ public class ClienteDAO extends CommonDAO{
         return clientes;
     }
     
+    private String colunas(){
+        return "SELECT cli.*,(SELECT COUNT(*) FROM Consulta con WHERE con.id_cliente = cli.id_cliente AND YEAR(con.data) = YEAR(CURDATE())) qtd_ano, "
+                + "(SELECT COUNT(*) FROM Consulta con WHERE con.id_cliente = cli.id_cliente AND YEAR(con.data) = YEAR(CURDATE()) AND MONTH(con.data) = MONTH(CURDATE())) qtd_mes, "
+                + "(SELECT COUNT(*) FROM Consulta con WHERE con.id_cliente = cli.id_cliente) qtd_total ";
+    }
+    private String tabela(){
+        return " FROM Cliente cli";
+    }
     public Cliente montar(ResultSet rs) throws SQLException{
         Cliente c = new Cliente();
+        c.setQtdConsultasAno(rs.getLong("qtd_ano"));
+        c.setQtdConsultasMes(rs.getLong("qtd_mes"));
+        c.setQtdConsultasTotal(rs.getLong("qtd_total"));
         c.setIdCliente(rs.getLong("id_cliente"));
         c.setNome(rs.getString("nome"));
         c.setUsuario(rs.getString("usuario"));
         c.setSenha(rs.getString("senha"));
+        try{
+            c.setPlano((Plano) Class.forName("com.vetpet.bean.Plano"+rs.getString("plano")).getConstructor().newInstance());
+        }catch(Exception e){
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE,null,e);
+        }
         
         return c;
     }
