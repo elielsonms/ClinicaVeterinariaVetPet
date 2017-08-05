@@ -28,11 +28,12 @@ public class ClienteDAO extends CommonDAO{
             }
         }*/
         Connection c = getConnection();
-        String query = "INSERT INTO Cliente (nome,usuario,senha) VALUES (?,?,?)";
+        String query = "INSERT INTO Cliente (nome,usuario,senha,plano) VALUES (?,?,?)";
         PreparedStatement st = c.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
         st.setString(1,cliente.getNome());
         st.setString(2,cliente.getUsuario());
         st.setString(3,cliente.getSenha());
+        st.setString(4, cliente.getPlano().getNome());
         st.executeUpdate();
         ResultSet rs = st.getGeneratedKeys();
         Long idCliente = null;
@@ -150,5 +151,16 @@ public class ClienteDAO extends CommonDAO{
         }
         return existe;
     }
-    
+
+    public void alterarPlano(Long idCliente,String plano) throws SQLException{
+        Connection c = getConnection();
+        String query = "UPDATE Cliente SET plano = ? WHERE id_cliente = ?";
+        PreparedStatement st = c.prepareStatement(query);
+        st.setString(1,plano);
+        st.setLong(2,idCliente);
+        st.executeUpdate();
+        st.close();
+        c.close();
+    }
+
 }

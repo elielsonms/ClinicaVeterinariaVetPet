@@ -10,6 +10,7 @@
         <a href="${request.getContextPath()}/consulta/SelecionarData">Marcar Consulta</a> <br/>
         <a href="${request.getContextPath()}/consulta/ConsultasAgendadas">Visualizar Agendadas</a><br/>
         <a href="${request.getContextPath()}/cliente/ListaCliente">Clientes</a><br/>
+        <a href="${request.getContextPath()}/plano/Planos">Planos</a><br/>
         <a href="${request.getContextPath()}/Sair">Sair</a>
     </body>
 </html>
