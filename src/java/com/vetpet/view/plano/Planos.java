@@ -33,9 +33,14 @@ public class Planos extends ServletSeguro {
     public void post(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Cliente cliente = ((Cliente)request.getSession().getAttribute("USUARIO"));
         try {
+            if(request.getParameter("opcao").equals("+")){
+                cliente.aumentarPlano();
+            }else{
+                cliente.diminuirPlano();
+            }
             ClienteDAO clienteDAO = new ClienteDAO();
-            clienteDAO.alterarPlano(cliente.getIdCliente(),request.getParameter("plano"));
-            request.getSession().setAttribute("USUARIO",clienteDAO.obterPorId(cliente.getIdCliente()));
+            clienteDAO.alterarPlano(cliente.getIdCliente(),cliente.getPlano().getNome());
+            request.getSession().setAttribute("USUARIO",cliente);
         } catch (SQLException ex) {
             Logger.getLogger(Planos.class.getName()).log(Level.SEVERE, null, ex);
         }

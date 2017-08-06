@@ -26,6 +26,16 @@ public class PlanoBasico implements Plano{
     public Double getValor() {
         return 50d;
     }
+    
+    @Override
+    public Plano aumentar(){
+        return new PlanoEspecial();
+    }
+    
+    @Override
+    public Plano diminuir(){
+        return new PlanoGratuito();
+    }
 
     
 

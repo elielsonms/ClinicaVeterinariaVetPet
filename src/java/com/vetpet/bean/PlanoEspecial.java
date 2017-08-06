@@ -25,5 +25,15 @@ public class PlanoEspecial implements Plano{
     public Double getValor() {
         return 70d;
     }
+    
+    @Override
+    public Plano aumentar(){
+        return new PlanoSupremo();
+    }
+    
+    @Override
+    public Plano diminuir(){
+        return new PlanoBasico();
+    }
 
 }

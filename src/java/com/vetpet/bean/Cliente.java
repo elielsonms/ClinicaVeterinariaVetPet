@@ -16,6 +16,15 @@ public class Cliente {
     private Long qtdConsultasAno;
     private Long qtdConsultasMes;
     private Plano plano;
+    
+    public void aumentarPlano(){
+        plano = plano.aumentar();
+    }
+    
+    
+    public void diminuirPlano(){
+        plano = plano.diminuir();
+    }
 
     private List<Animal> animais;
     

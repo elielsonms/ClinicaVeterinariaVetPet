@@ -4,7 +4,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>VetPet - Cadastro de Cliente</title>
+        <title>VetPet - Meus Animais</title>
         <style>
             td{
                 margin:5px;
@@ -16,19 +16,11 @@
         <jsp:include page="/WEB-INF/header.jsp" />
         <table>
             <tr>
-                <th>Cliente</th>
-                <th>Plano</th>
-                <th>Qtd Consultas no mês</th>
-                <th>Qtd Consultas no ano</th>
-                <th>Qtd Consultas no total</th>
+                <th>Animal</th>
             </tr>
-         <c:forEach items="${clientes}" var="cliente">
+         <c:forEach items="${animais}" var="animal">
             <tr>
-                <td>${cliente.getNome()}</td>
-                <td>${cliente.getPlano().getNome()}</td>
-                <td>${cliente.getQtdConsultasMes()}</td>
-                <td>${cliente.getQtdConsultasAno()}</td>
-                <td>${cliente.getQtdConsultasTotal()}</td>
+                <td>${animal.getNome()}</td>
             </tr>
         </c:forEach>
             </table>

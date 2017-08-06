@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -15,9 +17,10 @@ public class AnimalDAO extends CommonDAO{
 
       public void inserir(Animal animal) throws SQLException{
         Connection c = getConnection();
-        String query = "INSERT INTO Animal (nome) VALUES (?)";
+        String query = "INSERT INTO Animal (nome,id_cliente) VALUES (?,?)";
         PreparedStatement st = c.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
         st.setString(1,animal.getNome());
+        st.setLong(2, animal.getDono().getIdCliente());
 
         st.executeUpdate();
         ResultSet rs = st.getGeneratedKeys();
@@ -54,6 +57,23 @@ public class AnimalDAO extends CommonDAO{
         a.setNome(rs.getString("nome"));
         a.setIdAnimal(rs.getLong("id_animal"));
         return a;
+    }
+
+    public List<Animal> meus(Long idCliente) throws SQLException {
+        Connection c = getConnection();
+        String query = "SELECT * FROM Animal WHERE id_cliente= ?";
+        PreparedStatement st = c.prepareStatement(query);
+        st.setLong(1, idCliente);
+        ResultSet rs = st.executeQuery();
+        List<Animal> animais = new ArrayList<Animal>();
+        while(rs.next()){
+            animais.add(montar(rs));
+        }
+
+        rs.close();;
+        st.close();
+        c.close();
+        return animais;
     }
     
 }

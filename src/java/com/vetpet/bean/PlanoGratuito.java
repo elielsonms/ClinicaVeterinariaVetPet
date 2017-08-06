@@ -25,5 +25,15 @@ public class PlanoGratuito implements Plano{
     public Double getValor() {
         return 0d;
     }
+    
+    @Override
+    public Plano aumentar(){
+        return new PlanoBasico();
+    }
+    
+    @Override
+    public Plano diminuir(){
+        return new PlanoGratuito();
+    }
 
 }

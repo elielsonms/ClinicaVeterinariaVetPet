@@ -28,7 +28,7 @@ public class ClienteDAO extends CommonDAO{
             }
         }*/
         Connection c = getConnection();
-        String query = "INSERT INTO Cliente (nome,usuario,senha,plano) VALUES (?,?,?)";
+        String query = "INSERT INTO Cliente (nome,usuario,senha,plano) VALUES (?,?,?,?)";
         PreparedStatement st = c.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
         st.setString(1,cliente.getNome());
         st.setString(2,cliente.getUsuario());

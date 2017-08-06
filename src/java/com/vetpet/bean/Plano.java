@@ -11,5 +11,7 @@ public interface Plano {
     public Long getQuantidadeMensal();
     public Long getQuantidadeAnual();
     public Double getValor();
+    public Plano aumentar();
+    public Plano diminuir();
 
 }

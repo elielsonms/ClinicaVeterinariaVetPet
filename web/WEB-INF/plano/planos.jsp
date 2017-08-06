@@ -3,7 +3,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>VetPet - Login</title>
+        <title>VetPet - Planos</title>
         <style>
             .plano{
                 width: 100px;
@@ -20,34 +20,32 @@
     <body>
         <jsp:include page="/WEB-INF/header.jsp" />
         <form method="post" action="${request.getContextPath()}/plano/Planos">
+            <input type="submit" name="opcao" value="+"/>
+            <input type="submit" name="opcao" value="-"/>
             <div style="text-align: center; width: 100%">
                 <span class="plano ${classeGratuito}">
                     <p>Grauito</p>
                     <p>Consultas por ano: 1</p>
                     <p>Consultas por mês: 1</p>
                     <p>valor: R$00,00</p>
-                    <input type="submit" name="plano" value="Gratuito"/>
                 </span>
                 <span class="plano ${classeBasico}">
                     <p>Básico</p>
                     <p>Consultas por ano: 60</p>
                     <p>Consultas por mês: 5</p>
                     <p>valor: R$50,00</p>
-                    <input type="submit" name="plano" value="Basico"/>
                 </span>
                 <span class="plano ${classeEspecial}">
                     <p>Especial</p>
                     <p>Consultas por ano: 120</p>
                     <p>Consultas por mês: 10</p>
                     <p>valor: R$70,00</p>
-                    <input type="submit" name="plano" value="Especial"/>
                 </span>
                 <span class="plano ${classeSupremo}">
                     <p>Supremo</p>
                     <p>Consultas por ano: 360</p>
                     <p>Consultas por mês: 30</p>
                     <p>valor: R$100,00</p>
-                    <input type="submit" name="plano" value="Supremo"/>
                 </span>
             </div>
             <div style="clear:both"></div>
