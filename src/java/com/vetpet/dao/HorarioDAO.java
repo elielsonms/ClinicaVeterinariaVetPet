@@ -5,6 +5,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.List;
+import java.util.ArrayList;
 
 /**
  *
@@ -27,6 +30,23 @@ public class HorarioDAO extends CommonDAO{
         st.close();
         c.close();
         return horario;
+    }
+    
+        public List<Horario> obterHorarios(Long idHorario) throws SQLException{
+        List<Horario> horarios = new ArrayList<>();
+        
+        Connection c = getConnection();
+        String query = "SELECT id_Horario, id_Medico, DataHora FROM Horario";
+        Statement st = c.createStatement();
+        ResultSet rs = st.executeQuery(query);
+        if(rs.next()){
+            horarios.add (montar(rs));
+        }
+        
+        rs.close();;
+        st.close();
+        c.close();
+        return horarios;
     }
     
     public Horario montar(ResultSet rs) throws SQLException{

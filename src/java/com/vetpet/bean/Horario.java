@@ -1,13 +1,12 @@
 package com.vetpet.bean;
 
-/**
- *
- * @author elielsonms
- */
+import java.util.Date;
+
 public class Horario {
     
     private Long idHorario;
     private Long idMedico;
+    private Date DataHora;
 
     public Long getIdHorario() {
         return idHorario;
