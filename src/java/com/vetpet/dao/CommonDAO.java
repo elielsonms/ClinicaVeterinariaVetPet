@@ -21,8 +21,9 @@ public class CommonDAO {
     }
     
     public Connection getConnection() throws SQLException{
-        //return DriverManager.getConnection("jdbc:mysql://elielsonms.com:53891/VetPet", "vetPet", "v3tp6y7i");
-        return DriverManager.getConnection("jdbc:mysql://localhost:3388/VetPet", "root", "");
+        return DriverManager.getConnection("jdbc:mysql://elielsonms.com:53891/VetPet", "vetPet", "v3tp6y7i");
+        //return DriverManager.getConnection("jdbc:mysql://localhost:3388/VetPet", "root", "");
+        //return DriverManager.getConnection("jdbc:mysql://localhost:53891/VetPet", "vetPet", "v3tp6y7i");
     }
     
     

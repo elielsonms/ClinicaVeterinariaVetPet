@@ -10,6 +10,7 @@ public class Cliente {
     
     private Long idCliente;
     private String nome;
+    private String cpf;
     private String usuario;
     private String senha;
     private Long qtdConsultasTotal;
@@ -46,6 +47,14 @@ public class Cliente {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 
     public String getUsuario() {

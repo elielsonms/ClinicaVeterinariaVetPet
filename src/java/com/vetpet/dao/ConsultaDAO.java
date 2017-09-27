@@ -20,13 +20,11 @@ public class ConsultaDAO extends CommonDAO{
     
     public void inserir(Consulta consulta) throws SQLException{
         Connection c = getConnection();
-        String sql = "INSERT INTO Consulta (id_cliente,id_animal,id_medico,data) VALUES (?,?,?,?) ";
+        String sql = "INSERT INTO Consulta (id_cliente,id_animal,id_horario) VALUES (?,?,?) ";
         PreparedStatement st = c.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         st.setLong(1,consulta.getCliente().getIdCliente());
         st.setLong(2,consulta.getAnimal().getIdAnimal());
-        st.setLong(3,consulta.getMedico().getIdMedico());
-        
-        st.setDate(4, consulta.getData() != null ? new Date(consulta.getData().getTime()) : null);
+        st.setLong(3, consulta.getHorario().getIdHorario());
 
         st.executeUpdate();
     }
@@ -51,7 +49,7 @@ public class ConsultaDAO extends CommonDAO{
         while(rs.next()){
             consultas.add(montar(rs));
         }
-        rs.close();;
+        rs.close();
         st.close();
         c.close();
         return consultas;
@@ -67,7 +65,7 @@ public class ConsultaDAO extends CommonDAO{
         while(rs.next()){
             consultas.add(montar(rs));
         }
-        rs.close();;
+        rs.close();
         st.close();
         c.close();
         return consultas;
@@ -77,8 +75,7 @@ public class ConsultaDAO extends CommonDAO{
         Consulta c = new Consulta();
         c.setAnimal(new AnimalDAO().obterPorId(rs.getLong("id_animal")));
         c.setCliente(new ClienteDAO().obterPorId(rs.getLong("id_cliente")));
-        c.setMedico(new MedicoDAO().obterPorId(rs.getLong("id_medico")));
-        c.setData(rs.getDate("data"));
+        c.setHorario(new HorarioDAO().obterPorId(rs.getLong("id_horario")));
         return c;
     }
     

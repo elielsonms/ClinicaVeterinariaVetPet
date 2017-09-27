@@ -39,22 +39,28 @@ public class CadastroCliente extends HttpServlet {
         Cliente c = new Cliente();
         c.setPlano(new PlanoGratuito());
         c.setNome(request.getParameter("nome"));
+        c.setCpf(request.getParameter("cpf"));
         c.setUsuario(request.getParameter("usuario"));
         c.setSenha(request.getParameter("senha"));
 
         ClienteDAO clienteDAO = new ClienteDAO();
-        if(clienteDAO.existeLogin(c.getUsuario())){
-            request.setAttribute("mensagem", "Usuario existente, tente outro.");
+        if(clienteDAO.existeCPF(c.getCpf())){
+            request.setAttribute("mensagem", "Cliente já cadastrado com este CPF");
             doGet(request, response);
         }else{
-            try {
-
-                c.setIdCliente(clienteDAO.inserir(c));
-                request.getSession().setAttribute("USUARIO", c);
-                response.sendRedirect(request.getContextPath()+"/Menu");
-            } catch (SQLException ex) {
-                Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
+            if(clienteDAO.existeLogin(c.getUsuario())){
+                request.setAttribute("mensagem", "Usuario existente, tente outro.");
                 doGet(request, response);
+            }else{
+                try {
+
+                    c.setIdCliente(clienteDAO.inserir(c));
+                    request.getSession().setAttribute("USUARIO", c);
+                    response.sendRedirect(request.getContextPath()+"/Menu");
+                } catch (SQLException ex) {
+                    Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
+                    doGet(request, response);
+                }
             }
         }
     }

@@ -10,6 +10,7 @@
         <jsp:include page="/WEB-INF/header.jsp" />
         <form action="${request.getContextPath()}/cliente/Cadastro" method="post">
             Nome <input type="text" name="nome"/> <br/>
+            CPF <input type="text" name="cpf"/> <br/>
             Usuario <input type="text" name="usuario"/> <br/>
             Senha <input type="password" name="senha"/> <br/>
             <input value="Salvar" type="submit"/>

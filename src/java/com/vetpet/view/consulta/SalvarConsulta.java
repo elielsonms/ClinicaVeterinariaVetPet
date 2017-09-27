@@ -3,16 +3,15 @@ package com.vetpet.view.consulta;
 import com.vetpet.bean.Animal;
 import com.vetpet.bean.Cliente;
 import com.vetpet.bean.Consulta;
+import com.vetpet.bean.Horario;
 import com.vetpet.dao.AnimalDAO;
 import com.vetpet.dao.ClienteDAO;
 import com.vetpet.dao.ConsultaDAO;
+import com.vetpet.dao.HorarioDAO;
 import com.vetpet.dao.MedicoDAO;
 import com.vetpet.view.ServletSeguro;
 import java.io.IOException;
-import static java.lang.System.out;
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -40,9 +39,9 @@ public class SalvarConsulta extends ServletSeguro {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
         ConsultaDAO consultaDAO = new ConsultaDAO();
-        MedicoDAO medicoDAO = new MedicoDAO();
         ClienteDAO clienteDAO = new ClienteDAO();
         AnimalDAO animalDAO = new AnimalDAO();
+        HorarioDAO horarioDAO = new HorarioDAO();
 
         Consulta consulta = new Consulta();
         Cliente cl = (Cliente)request.getSession().getAttribute("USUARIO");
@@ -53,13 +52,10 @@ public class SalvarConsulta extends ServletSeguro {
             a.setDono(cl);
             animalDAO.inserir(a);
             consulta.setAnimal(a);
-            SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-            try {
-                consulta.setData(df.parse(request.getParameter("data")));
-            } catch (ParseException ex) {
-                Logger.getLogger(SalvarConsulta.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            consulta.setMedico(medicoDAO.obterPorId(Long.parseLong(request.getParameter("medico"))));
+            
+            Horario horario = new Horario();
+            horario.setIdHorario(Long.parseLong(request.getParameter("id_horario")));
+            consulta.setHorario(horario);
         }
         consultaDAO.inserir(consulta);
         request.setAttribute("consulta", consulta);

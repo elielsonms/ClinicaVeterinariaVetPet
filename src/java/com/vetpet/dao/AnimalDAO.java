@@ -34,6 +34,24 @@ public class AnimalDAO extends CommonDAO{
         st.close();
         c.close();
     }
+      
+    public Animal obterPorNomeECliente(String nomeAnimal,Long idCliente) throws SQLException{
+        Connection c = getConnection();
+        String query = "SELECT * FROM Animal WHERE nome = ? AND id_cliente = ? ";
+        PreparedStatement st = c.prepareStatement(query);
+        st.setString(1, nomeAnimal);
+        st.setLong(2, idCliente);
+        ResultSet rs = st.executeQuery();
+        Animal animal = null;
+        if(rs.next()){
+            animal = montar(rs);
+        }
+        
+        rs.close();
+        st.close();
+        c.close();
+        return animal;
+    }
     
     public Animal obterPorId(Long idAnimal) throws SQLException{
         Connection c = getConnection();
@@ -46,7 +64,7 @@ public class AnimalDAO extends CommonDAO{
             animal = montar(rs);
         }
         
-        rs.close();;
+        rs.close();
         st.close();
         c.close();
         return animal;
@@ -70,7 +88,7 @@ public class AnimalDAO extends CommonDAO{
             animais.add(montar(rs));
         }
 
-        rs.close();;
+        rs.close();
         st.close();
         c.close();
         return animais;

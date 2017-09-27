@@ -1,7 +1,5 @@
 package com.vetpet.bean;
 
-import java.util.Date;
-
 /**
  *
  * @author aluno
@@ -11,8 +9,7 @@ public class Consulta {
     private Long idConsulta;
     private Cliente cliente;
     private Animal animal;
-    private Date data;
-    private Medico medico;
+    private Horario horario;
 
     public Long getIdConsulta() {
         return idConsulta;
@@ -26,12 +23,8 @@ public class Consulta {
         return animal;
     }
 
-    public Date getData() {
-        return data;
-    }
-
-    public Medico getMedico() {
-        return medico;
+    public Horario getHorario() {
+        return horario;
     }
 
     public void setIdConsulta(Long idConsulta) {
@@ -46,12 +39,8 @@ public class Consulta {
         this.animal = animal;
     }
 
-    public void setData(Date data) {
-        this.data = data;
-    }
-
-    public void setMedico(Medico medico) {
-        this.medico = medico;
+    public void setHorario(Horario horario) {
+        this.horario = horario;
     }
 
 }

@@ -68,7 +68,32 @@ public class ClienteDAO extends CommonDAO{
             cliente = montar(rs);
         }
         
-        rs.close();;
+        rs.close();
+        st.close();
+        c.close();
+        return cliente;
+    }
+    
+    public boolean existeCPF(String cpf){
+        try{
+            return obterPorCPF(cpf) != null;
+        }catch(Exception e){
+            return false;
+        }
+    }
+    
+    public Cliente obterPorCPF(String cpf) throws SQLException{
+        Connection c = getConnection();
+        String query = colunas()+tabela()+" WHERE cpf = ?";
+        PreparedStatement st = c.prepareStatement(query);
+        st.setString(1, cpf);
+        ResultSet rs = st.executeQuery();
+        Cliente cliente = null;
+        if(rs.next()){
+            cliente = montar(rs);
+        }
+        
+        rs.close();
         st.close();
         c.close();
         return cliente;
@@ -85,7 +110,7 @@ public class ClienteDAO extends CommonDAO{
             cliente = montar(rs);
         }
         
-        rs.close();;
+        rs.close();
         st.close();
         c.close();
         return cliente;
@@ -100,7 +125,7 @@ public class ClienteDAO extends CommonDAO{
         while(rs.next()){
             clientes.add(montar(rs));
         }
-        rs.close();;
+        rs.close();
         st.close();
         c.close();
         return clientes;
