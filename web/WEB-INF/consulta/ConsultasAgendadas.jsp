@@ -12,8 +12,8 @@
             <p>
                 Consulta do cliente <c:out value="${consulta.getCliente().getNome()}"/> 
                 para o animal <c:out value="${consulta.getAnimal().getNome()}"/> 
-                com o veterinario <c:out value="${consulta.getMedico().getNome()}"/> 
-                foi agendada para o dia <c:out value="${consulta.getData()}"/>
+                com o veterinario <c:out value="${consulta.getHorario().getMedico().getNome()}"/> 
+                foi agendada para o dia <c:out value="${consulta.getHorario().getDataHoraFormatada()}"/>
             </p>
         </c:forEach>
         <c:if test="${consultas == null}">

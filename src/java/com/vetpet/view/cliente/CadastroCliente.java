@@ -53,11 +53,11 @@ public class CadastroCliente extends HttpServlet {
                 doGet(request, response);
             }else{
                 try {
-
                     c.setIdCliente(clienteDAO.inserir(c));
-                    request.getSession().setAttribute("USUARIO", c);
+                    request.getSession().setAttribute("USUARIO", clienteDAO.obterPorId(c.getIdCliente()));//Obter a contabilização de consultas
                     response.sendRedirect(request.getContextPath()+"/Menu");
                 } catch (SQLException ex) {
+                    request.setAttribute("mensagem", "Erro ao salvar o usuario. Tente novamente.");
                     Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
                     doGet(request, response);
                 }

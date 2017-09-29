@@ -1,9 +1,16 @@
 package com.vetpet.view.consulta;
 
 import com.vetpet.bean.Cliente;
+import com.vetpet.bean.Horario;
 import com.vetpet.dao.ConsultaDAO;
+import com.vetpet.dao.HorarioDAO;
+import com.vetpet.dao.MedicoDAO;
 import com.vetpet.view.ServletSeguro;
+import com.vetpet.webservice.HorarioDTO;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -29,12 +36,25 @@ public class SelecionarData extends ServletSeguro {
         request.setAttribute("request",request);
         Cliente cl = (Cliente)request.getSession().getAttribute("USUARIO");
         if(cl.podeRealizarConsulta()){
-            request.setAttribute("datasPossiveis", new ConsultaDAO().datasPossiveis());
+            request.setAttribute("horariosLivres", horariosLivresDTO());
             request.getRequestDispatcher("/WEB-INF/consulta/SelecionarData.jsp").forward(request, response);
         }else{
             request.setAttribute("cliente", cl);
             request.getRequestDispatcher("/WEB-INF/consulta/NaoPodeRealizarConsulta.jsp").forward(request, response);
         }
+    }
+    
+     private List<HorarioDTO> horariosLivresDTO(){
+        List<Horario> horarios = new HorarioDAO().horariosLivres();
+        List<HorarioDTO> horariosDTO = new ArrayList<HorarioDTO>();
+        for(Horario h : horarios){
+            try{
+                horariosDTO.add(new HorarioDTO(h.getIdHorario(), h.getDataHoraFormatada(), h.getMedico().getNome()));
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+        return horariosDTO;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

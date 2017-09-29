@@ -8,7 +8,6 @@ import com.vetpet.dao.AnimalDAO;
 import com.vetpet.dao.ClienteDAO;
 import com.vetpet.dao.ConsultaDAO;
 import com.vetpet.dao.HorarioDAO;
-import com.vetpet.dao.MedicoDAO;
 import com.vetpet.view.ServletSeguro;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -52,14 +51,17 @@ public class SalvarConsulta extends ServletSeguro {
             a.setDono(cl);
             animalDAO.inserir(a);
             consulta.setAnimal(a);
+
+            consulta.setHorario(horarioDAO.obterPorId(Long.parseLong(request.getParameter("id_horario"))));
             
-            Horario horario = new Horario();
-            horario.setIdHorario(Long.parseLong(request.getParameter("id_horario")));
-            consulta.setHorario(horario);
+            consultaDAO.inserir(consulta);
+            request.setAttribute("consulta", consulta);
+            request.getRequestDispatcher("/WEB-INF/consulta/ConsultaSalva.jsp").forward(request, response);
+        }else{
+            request.setAttribute("cliente", cl);
+            request.getRequestDispatcher("/WEB-INF/consulta/NaoPodeRealizarConsulta.jsp").forward(request, response);
         }
-        consultaDAO.inserir(consulta);
-        request.setAttribute("consulta", consulta);
-        request.getRequestDispatcher("/WEB-INF/consulta/ConsultaSalva.jsp").forward(request, response);
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

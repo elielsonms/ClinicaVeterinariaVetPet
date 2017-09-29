@@ -7,7 +7,7 @@
     </head>
     <body>
         <jsp:include page="/WEB-INF/header.jsp" />
-        <h2>Olá ${consulta.getCliente().getNome()} sua consulta para o animal ${consulta.getAnimal().getNome()} foi agendada para o dia ${consulta.getData()}</h2>
+        <h2>Olá ${consulta.getCliente().getNome()} sua consulta para o animal ${consulta.getAnimal().getNome()} foi agendada para o dia ${consulta.getHorario().getDataHoraFormatada()}</h2>
         <jsp:include page="/WEB-INF/footer.jsp" />
     </body>
 </html>

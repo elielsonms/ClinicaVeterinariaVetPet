@@ -1,5 +1,8 @@
 package com.vetpet.bean;
 
+import com.vetpet.util.DataUtil;
+import java.util.Date;
+
 /**
  *
  * @author elielsonms
@@ -7,7 +10,8 @@ package com.vetpet.bean;
 public class Horario {
     
     private Long idHorario;
-    private Long idMedico;
+    private Medico medico;
+    private Date dataHora;
 
     public Long getIdHorario() {
         return idHorario;
@@ -17,12 +21,24 @@ public class Horario {
         this.idHorario = idHorario;
     }
 
-    public Long getIdMedico() {
-        return idMedico;
+    public Medico getMedico() {
+        return medico;
     }
 
-    public void setIdMedico(Long idMedico) {
-        this.idMedico = idMedico;
+    public void setMedico(Medico medico) {
+        this.medico = medico;
+    }
+
+    public Date getDataHora() {
+        return dataHora;
+    }
+
+    public void setDataHora(Date dataHora) {
+        this.dataHora = dataHora;
+    }
+    
+    public String getDataHoraFormatada(){
+        return DataUtil.formatar(getDataHora());
     }
 
 }

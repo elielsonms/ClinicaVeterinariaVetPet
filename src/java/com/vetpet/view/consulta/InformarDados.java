@@ -1,10 +1,14 @@
 package com.vetpet.view.consulta;
 
 import com.vetpet.bean.Cliente;
+import com.vetpet.bean.Horario;
+import com.vetpet.bean.Medico;
+import com.vetpet.dao.HorarioDAO;
 import com.vetpet.dao.MedicoDAO;
 import com.vetpet.view.ServletSeguro;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -29,9 +33,13 @@ public class InformarDados extends ServletSeguro {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        request.setAttribute("medicos", new MedicoDAO().obterMedicos());
         request.setAttribute("request",request);
-        request.setAttribute("dataSelecionada", request.getParameter("data"));
+
+        Horario h = new HorarioDAO().obterPorId(Long.parseLong(request.getParameter("id_horario")));
+
+        request.setAttribute("idHorario", h.getIdHorario());
+        request.setAttribute("nomeMedico", h.getMedico().getNome());
+        request.setAttribute("dataSelecionada", h.getDataHora());
         request.setAttribute("nomeCliente",((Cliente)request.getSession().getAttribute("USUARIO")).getNome());
         request.getRequestDispatcher("/WEB-INF/consulta/InformarDados.jsp").forward(request, response);
     }

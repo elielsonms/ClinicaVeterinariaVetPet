@@ -28,12 +28,13 @@ public class ClienteDAO extends CommonDAO{
             }
         }*/
         Connection c = getConnection();
-        String query = "INSERT INTO Cliente (nome,usuario,senha,plano) VALUES (?,?,?,?)";
+        String query = "INSERT INTO Cliente (nome,usuario,senha,plano,cpf) VALUES (?,?,?,?,?)";
         PreparedStatement st = c.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-        st.setString(1,cliente.getNome());
-        st.setString(2,cliente.getUsuario());
-        st.setString(3,cliente.getSenha());
+        st.setString(1, cliente.getNome());
+        st.setString(2, cliente.getUsuario());
+        st.setString(3, cliente.getSenha());
         st.setString(4, cliente.getPlano().getNome());
+        st.setString(5, cliente.getCpf());
         st.executeUpdate();
         ResultSet rs = st.getGeneratedKeys();
         Long idCliente = null;
@@ -132,8 +133,8 @@ public class ClienteDAO extends CommonDAO{
     }
     
     private String colunas(){
-        return "SELECT cli.*,(SELECT COUNT(*) FROM Consulta con WHERE con.id_cliente = cli.id_cliente AND YEAR(con.data) = YEAR(CURDATE())) qtd_ano, "
-                + "(SELECT COUNT(*) FROM Consulta con WHERE con.id_cliente = cli.id_cliente AND YEAR(con.data) = YEAR(CURDATE()) AND MONTH(con.data) = MONTH(CURDATE())) qtd_mes, "
+        return "SELECT cli.*,(SELECT COUNT(*) FROM Consulta con LEFT JOIN Horario h ON h.id_horario = con.id_horario WHERE con.id_cliente = cli.id_cliente AND YEAR(h.DataHora) = YEAR(CURDATE())) qtd_ano, "
+                + "(SELECT COUNT(*) FROM Consulta con LEFT JOIN Horario h ON h.id_horario = con.id_horario WHERE con.id_cliente = cli.id_cliente AND YEAR(h.DataHora) = YEAR(CURDATE()) AND MONTH(h.DataHora) = MONTH(CURDATE())) qtd_mes, "
                 + "(SELECT COUNT(*) FROM Consulta con WHERE con.id_cliente = cli.id_cliente) qtd_total ";
     }
     private String tabela(){

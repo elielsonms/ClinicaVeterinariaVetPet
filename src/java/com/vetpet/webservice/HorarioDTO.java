@@ -10,6 +10,14 @@ public class HorarioDTO {
     private String horario;
     private String medico;
 
+    public HorarioDTO() {}
+
+    public HorarioDTO(Long idHorario, String horario, String medico) {
+        this.idHorario = idHorario;
+        this.horario = horario;
+        this.medico = medico;
+    }
+
     public Long getIdHorario() {
         return idHorario;
     }

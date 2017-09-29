@@ -28,17 +28,6 @@ public class ConsultaDAO extends CommonDAO{
 
         st.executeUpdate();
     }
-    
-    public List<String> datasPossiveis(){
-        List<String> datas = new ArrayList<>();
-        Calendar hoje = Calendar.getInstance();
-        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-        for(int i = 0; i< 6; i++){
-            hoje.set(Calendar.DATE, hoje.get(Calendar.DATE) + 1);
-            datas.add(df.format(hoje.getTime()));
-        }
-        return datas;
-    }
 
     public List<Consulta> obterConsultas() throws SQLException {
         Connection c = getConnection();
