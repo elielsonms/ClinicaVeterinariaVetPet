@@ -59,6 +59,22 @@ public class ConsultaDAO extends CommonDAO{
         c.close();
         return consultas;
     }
+    
+    public Consulta obterPorIdHorario(Long idHorario) throws SQLException {
+        Connection c = getConnection();
+        String query = "SELECT * FROM Consulta WHERE id_horario = ?";
+        PreparedStatement st = c.prepareStatement(query);
+        st.setLong(1, idHorario);
+        ResultSet rs = st.executeQuery();
+        List<Consulta> consultas = new ArrayList<>();
+        if(rs.next()){
+            return montar(rs);
+        }
+        rs.close();
+        st.close();
+        c.close();
+        return null;
+    }
 
     private Consulta montar(ResultSet rs) throws SQLException {
         Consulta c = new Consulta();
@@ -68,8 +84,6 @@ public class ConsultaDAO extends CommonDAO{
         return c;
     }
 
-    public Consulta obterPorIdHorario(Long idHorario) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    
     
 }
