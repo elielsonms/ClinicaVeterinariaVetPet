@@ -39,9 +39,16 @@ public class MarcacaoDeConsultasWS {
     
     public String registrarConsulta(String cpfCliente, String nomeAnimal, Long idHorario){
         try{
+            if(idHorario == null){
+                return "Horário não identificado";
+            }
             Horario horario = horarioDAO.obterPorId(idHorario);
             if(horario == null){
                 return "Horário não identificado";
+            }
+            Consulta consulta = consultaDAO.obterPorIdHorario(idHorario);
+            if(consulta != null){
+                return "Horario já está agendado";
             }
             Cliente cliente = clienteDAO.obterPorCPF(cpfCliente);
             if(cliente == null){
@@ -58,17 +65,18 @@ public class MarcacaoDeConsultasWS {
                     animal = animalDAO.obterPorNomeECliente(nomeAnimal, cliente.getIdCliente());
                 }
 
-                Consulta consulta = new Consulta();
-                consulta.setHorario(horario);
-                consulta.setCliente(cliente);
-                consulta.setAnimal(animal);
+                Consulta novaConsulta = new Consulta();
+                novaConsulta.setHorario(horario);
+                novaConsulta.setCliente(cliente);
+                novaConsulta.setAnimal(animal);
 
-                consultaDAO.inserir(consulta);
+                consultaDAO.inserir(novaConsulta);
                 return "OK";
             }else{
                 return "Quantidade de consultas para seu plano já terminou";
             }
         }catch(Exception e){
+            e.printStackTrace();
             return "NO";
         }
         

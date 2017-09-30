@@ -67,5 +67,9 @@ public class ConsultaDAO extends CommonDAO{
         c.setHorario(new HorarioDAO().obterPorId(rs.getLong("id_horario")));
         return c;
     }
+
+    public Consulta obterPorIdHorario(Long idHorario) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }
